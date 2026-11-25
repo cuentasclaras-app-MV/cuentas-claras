@@ -34,8 +34,6 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: android-actions/setup-android@v3
-
       - name: Poner la dirección pública de la app
         run: |
           OWNER="${GITHUB_REPOSITORY_OWNER,,}"
