@@ -1,0 +1,9 @@
+{
+  "appId": "mx.cuentasclaras.app",
+  "appName": "Cuentas Claras",
+  "webDir": "www",
+  "android": { "backgroundColor": "#0D5C4A" },
+  "plugins": {
+    "LocalNotifications": { "iconColor": "#0D5C4A" }
+  }
+}

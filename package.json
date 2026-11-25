@@ -1,0 +1,21 @@
+{
+  "name": "cuentas-claras",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cuentas Claras: finanzas personales, balance, deudas y metas de ahorro",
+  "scripts": {
+    "android": "cap add android && capacitor-assets generate --android --iconBackgroundColor '#0D5C4A' --splashBackgroundColor '#0D5C4A' && cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/filesystem": "^8.1.5",
+    "@capacitor/local-notifications": "^8.3.1",
+    "@capacitor/share": "^8.0.3"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^4.0.0",
+    "@capacitor/cli": "^8.6.2"
+  }
+}
