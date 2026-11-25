@@ -1,0 +1,47 @@
+name: Publicar versión para iPhone
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Acomodar carpetas
+        run: |
+          if [ ! -f www/index.html ]; then
+            mkdir -p www/icons www/vendor assets
+            for f in icon-192.png icon-512.png maskable-512.png apple-touch-icon.png; do [ -f "$f" ] && mv "$f" www/icons/; done
+            [ -f xlsx.mini.min.js ] && mv xlsx.mini.min.js www/vendor/
+            for f in index.html app.js styles.css sw.js manifest.webmanifest; do [ -f "$f" ] && mv "$f" www/; done
+            for f in icon-only.png icon-foreground.png icon-background.png; do [ -f "$f" ] && mv "$f" assets/; done
+          fi
+          ls -R www assets
+
+      - name: Poner la dirección pública de la app
+        run: |
+          OWNER="${GITHUB_REPOSITORY_OWNER,,}"
+          REPO="${GITHUB_REPOSITORY#*/}"
+          sed -i "s#'__APP_URL__'#'https://${OWNER}.github.io/${REPO}/'#" www/app.js
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: www
+      - id: deploy
+        uses: actions/deploy-pages@v4
